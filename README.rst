@@ -7,7 +7,7 @@ pedigree_imputation
 
 
 
-This project will take incl[Domplete pedigree data and impute missing values such as age.
+This project will take incomplete pedigree data and impute missing values for variables such as age.
 
 
 
