@@ -8,5 +8,10 @@ class Individual:
         self.mother = mother
         self.id_numb = id_numb
     @property
-    def siblings
+    def siblings(self):
         
+class Pedigree:
+    def __init__ (self, individuals):
+        self.individuals = dict()
+    def print_info(self, filename):
+         # print the pedigree information
