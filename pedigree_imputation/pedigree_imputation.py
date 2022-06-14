@@ -7,8 +7,9 @@ class Individual:
         self.father = father
         self.mother = mother
         self.id_numb = id_numb
-    @property
-    def siblings(self):
+        
+        @property
+        def siblings(self):
         
 class Pedigree:
     def __init__ (self, individuals):
