@@ -10,19 +10,21 @@ class Individual:
         
         @property
         def siblings(self):
+            return[]
             
         
 class Pedigree:
     def __init__ (self, individuals):
-        self.individuals = dict()
+            self.individuals = dict()
     def print_info(self, filename):
          # print the pedigree information
+         return[]
                
 def import_ped(pedfile, mapfile):
     with open(pedfile,'r') as file:
-        for line in file
+        for line in file:
             data_list=line.split()
             Individuals= []
-            Individuals.append(individual(data_list[0], data_list[1], data_list[2], data_list[3], data_list[4]))
+            Individuals.append(Individual(data_list[0], data_list[1], data_list[2], data_list[3], data_list[4]))
                 # not passing in age right now because I am not sure which column it is in.
             
