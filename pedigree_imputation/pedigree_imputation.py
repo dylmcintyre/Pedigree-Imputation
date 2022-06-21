@@ -39,9 +39,9 @@ def import_ped(pedfile, mapfile = None):
             data_list=line.split()
             individuals.append(Individual(data_list[0], data_list[1], data_list[2], data_list[3], data_list[4]))
                 # not passing in age right now because I am not sure which column it is in.
-    ped= Pedigree(individuals)
+    return(Pedigree(individuals))
 
-import_ped("Fam12.ped")
-p= Individual(None, 18, 0, 0, 0)
-for x in p.siblings:
-    print(x.id_numb)
+p= import_ped("Fam12.ped")
+s= p.individuals[0].siblings
+for ind in s:
+    print(ind.id_numb)
