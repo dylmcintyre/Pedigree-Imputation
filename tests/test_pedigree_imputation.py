@@ -35,3 +35,18 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+
+@pytest.fixture
+def my_ped():
+    return pedigree_imputation.import_ped("Fam12")
+
+@pytest.fixture
+def number_of_lines():
+    with open("Fam12",'r') as file:
+        number_of_lines= len(file.readlines())
+        return number_of_lines
+
+
+def test_length_ped(my_ped,number_of_lines):
+    assert len(my_ped.individuals) == number_of_lines
+    
