@@ -41,7 +41,13 @@ def import_ped(pedfile, mapfile = None):
                 # not passing in age right now because I am not sure which column it is in.
     return(Pedigree(individuals))
 
-p= import_ped("Fam12.ped")
+
+
+
+
+#for testing(will delete)
+"""p= import_ped("Fam12.ped")
 s= p.individuals[0].siblings
 for ind in s:
     print(ind.id_numb)
+        """
