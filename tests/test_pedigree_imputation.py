@@ -2,7 +2,7 @@
 
 """Tests for `pedigree_imputation` package."""
 
-import pytest
+import pytestpython -m pip install --upgrade pip
 
 from click.testing import CliRunner
 
@@ -49,4 +49,6 @@ def number_of_lines():
 
 def test_length_ped(my_ped,number_of_lines):
     assert len(my_ped.individuals) == number_of_lines
-    
+
+def test_siblings(my_ped):
+    assert len(ped.individuals[0].siblings) == 1 
