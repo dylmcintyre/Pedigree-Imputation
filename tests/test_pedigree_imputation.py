@@ -2,7 +2,7 @@
 
 """Tests for `pedigree_imputation` package."""
 
-import pytestpython -m pip install --upgrade pip
+import pytest
 
 from click.testing import CliRunner
 
