@@ -3,51 +3,68 @@
 individuals= []
 
 class Individual:
-    def __init__ (self, pedigree_numb, id_numb, father,  mother, sex, age= None):
+    def __init__ (self, pedigree_numb, id_numb, father, mother, sex, age):
         self.ped=None
         self.pedigree_numb = pedigree_numb
         self.sex = sex
-        self.age = age
+        if(age==0):
+            self.age = None
+        else:
+            self.age=age
         self.father = father
         self.mother = mother
         self.id_numb = id_numb
         
     @property
     def siblings(self):
-        siblings= []
-        for ind in self.ped.individuals:
-            if self.id_numb != ind.id_numb and self.mother == ind.mother and self.father == ind.father:
-               siblings.append(ind)
-                #adds sibling to list
+        siblings= {}
+        for id in self.ped.individuals.keys():
+            if self.mother ==0 or self.father==0:
+                pass
+            #this insures Individuals without mother or father values aren't included
+            if self.id_numb != self.ped.individuals[id].id_numb and self.mother == self.ped.individuals[id].mother and self.father == self.ped.individuals[id].father:
+               siblings[self.id_numb]=self
+                #adds sibling to dictionary using id_numb as key
         return(siblings)
+
+    @property
+    def impute_age(self):
+        count =0
+        total=0
+        for key in self.siblings.keys():
+            count += 1
+            total += int (self.siblings[key].age)
+        return int (total/count)
+#5 refers to the age of the individual
+
+
+
              
 class Pedigree:
     def __init__ (self, individuals):
         self.individuals = individuals
-        for ind in self.individuals:
-            ind.ped= self
-
+        for id in self.individuals:
+            individuals[id].ped= self
+            #This refers to each individual object and sets their pedigree as the current one.
 
     def print_info(self, filename):
          # print the pedigree information
          return[]
                
 def import_ped(pedfile, mapfile = None):
-    individuals= []
+    individuals= {}
     with open(pedfile,'r') as file:
         for line in file:
+            data_list=[]
             data_list=line.split()
-            individuals.append(Individual(data_list[0], data_list[1], data_list[2], data_list[3], data_list[4]))
-                # not passing in age right now because I am not sure which column it is in.
+            individuals[data_list[1]]=Individual(data_list[0], data_list[1], data_list[2], data_list[3], data_list[4], data_list[5])
+                # This puts each object into the dictionary with ID_numb as the key.
     return(Pedigree(individuals))
 
 
 
 
+p= import_ped("Fam12.ped")
+print(p.individuals['11'].impute_age)
 
-#for testing(will delete)
-"""p= import_ped("Fam12.ped")
-s= p.individuals[0].siblings
-for ind in s:
-    print(ind.id_numb)
-        """
+#6/24 note: problem with impute age function itself

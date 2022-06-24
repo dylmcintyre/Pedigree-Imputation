@@ -1,13 +1,17 @@
 #!/usr/bin/env python
+from http.cookiejar import LWPCookieJar
 
+
+LWPCookieJar
 """Tests for `pedigree_imputation` package."""
 
-import pytestpython -m pip install --upgrade pip
+import pytest
 
 from click.testing import CliRunner
 
 from pedigree_imputation import pedigree_imputation
 from pedigree_imputation import cli
+
 
 
 @pytest.fixture
@@ -38,11 +42,10 @@ def test_command_line_interface():
 
 @pytest.fixture
 def my_ped():
-    return pedigree_imputation.import_ped("Fam12")
+    return pedigree_imputation.import_ped("Fam12.ped")
 
-@pytest.fixture
 def number_of_lines():
-    with open("Fam12",'r') as file:
+    with open("Fam12.ped",'r') as file:
         number_of_lines= len(file.readlines())
         return number_of_lines
 
@@ -51,4 +54,4 @@ def test_length_ped(my_ped,number_of_lines):
     assert len(my_ped.individuals) == number_of_lines
 
 def test_siblings(my_ped):
-    assert len(ped.individuals[0].siblings) == 1 
+    assert len(my_ped.individuals[0].siblings) == 1 
