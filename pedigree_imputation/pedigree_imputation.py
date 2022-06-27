@@ -29,7 +29,7 @@ class Individual:
 
     @property
     def impute_age(self):
-        if self.age != 0:
+        if self.age != None:
             print("Age value already exists for individual.")
             return(self.age)
         count =0
