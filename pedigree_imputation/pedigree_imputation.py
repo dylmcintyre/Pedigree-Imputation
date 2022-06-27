@@ -6,10 +6,7 @@ class Individual:
         self.ped=None
         self.pedigree_numb = pedigree_numb
         self.sex = sex
-        if(age==0):
-            self.age = None
-        else:
-            self.age=age
+        self.age = age
         self.father = father
         self.mother = mother
         self.id_numb = id_numb
@@ -18,18 +15,17 @@ class Individual:
     def siblings(self):
         siblings= {}
         for id in self.ped.individuals.keys():
-            print(id)
             if self.mother ==0 or self.father==0:
                 pass
             #this insures Individuals without mother or father values aren't included
-            if self.id_numb != self.ped.individuals[id].id_numb and self.mother == self.ped.individuals[id].mother and self.father == self.ped.individuals[id].father:
-               siblings[self.id_numb]=self
+            if self.id_numb != id and self.mother == self.ped.individuals[id].mother and self.father == self.ped.individuals[id].father:
+               siblings[id]=self
                 #adds sibling to dictionary using id_numb as key
         return(siblings)
 
     @property
     def impute_age(self):
-        if int (self.age) != 0 and self.age != None:
+        if int (self.age) != 0:
             print("Age value already exists for individual.")
             return(self.age)
         elif len(self.siblings) == 0:
@@ -38,10 +34,10 @@ class Individual:
         else:
             count =0
             total=0
-            for key in self.siblings.keys():
-                print(key)
+            s= self.siblings
+            for key in s.keys():
                 count += 1
-                total += int (self.siblings[key].age)
+                total += int (self.ped.individuals[key].age)
             return int (total/count)
 #5 refers to the age of the individual
 
@@ -74,4 +70,3 @@ def import_ped(pedfile, mapfile = None):
 
 p= import_ped("Fam12.ped")
 print(p.individuals['11'].impute_age)
-#print (import_ped("Fam12.ped").individuals['11'])
