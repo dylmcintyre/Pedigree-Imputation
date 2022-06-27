@@ -29,6 +29,9 @@ class Individual:
 
     @property
     def impute_age(self):
+        if self.age != 0:
+            print("Age value already exists for individual.")
+            return(self.age)
         count =0
         total=0
         for key in self.siblings.keys():
@@ -66,5 +69,3 @@ def import_ped(pedfile, mapfile = None):
 
 p= import_ped("Fam12.ped")
 print(p.individuals['11'].impute_age)
-
-#6/24 note: problem with impute age function itself
