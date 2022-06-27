@@ -1,6 +1,5 @@
 """Main module."""
 
-individuals= []
 
 class Individual:
     def __init__ (self, pedigree_numb, id_numb, father, mother, sex, age):
@@ -19,6 +18,7 @@ class Individual:
     def siblings(self):
         siblings= {}
         for id in self.ped.individuals.keys():
+            print(id)
             if self.mother ==0 or self.father==0:
                 pass
             #this insures Individuals without mother or father values aren't included
@@ -29,13 +29,17 @@ class Individual:
 
     @property
     def impute_age(self):
-        if self.age != 0:
+        if int (self.age) != 0 and self.age != None:
             print("Age value already exists for individual.")
             return(self.age)
+        elif len(self.siblings) == 0:
+            print("No siblings to compute age from.")
+            return(None)
         else:
             count =0
             total=0
             for key in self.siblings.keys():
+                print(key)
                 count += 1
                 total += int (self.siblings[key].age)
             return int (total/count)
@@ -70,3 +74,4 @@ def import_ped(pedfile, mapfile = None):
 
 p= import_ped("Fam12.ped")
 print(p.individuals['11'].impute_age)
+#print (import_ped("Fam12.ped").individuals['11'])
