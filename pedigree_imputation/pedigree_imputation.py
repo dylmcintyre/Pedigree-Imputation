@@ -32,12 +32,13 @@ class Individual:
         if self.age != None:
             print("Age value already exists for individual.")
             return(self.age)
-        count =0
-        total=0
-        for key in self.siblings.keys():
-            count += 1
-            total += int (self.siblings[key].age)
-        return int (total/count)
+        else:
+            count =0
+            total=0
+            for key in self.siblings.keys():
+                count += 1
+                total += int (self.siblings[key].age)
+            return int (total/count)
 #5 refers to the age of the individual
 
 
