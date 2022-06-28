@@ -55,3 +55,6 @@ def test_length_ped(my_ped,number_of_lines):
 
 def test_siblings(my_ped):
     assert len(my_ped.individuals[0].siblings) == 1 
+
+def test_impute_age(my_ped):
+    assert(my_ped.individuals[11].impute_age == 74)
