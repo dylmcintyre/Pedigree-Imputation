@@ -1,6 +1,9 @@
 """Main module."""
 
 
+import faulthandler
+
+
 class Individual:
     def __init__ (self, pedigree_numb, id_numb, father, mother, sex, age):
         self.ped=None
@@ -14,30 +17,27 @@ class Individual:
     @property
     def siblings(self):
         siblings= {}
-        for id in self.ped.individuals.keys():
+        for ind in self.ped.individuals.values():
             if self.mother ==0 or self.father==0:
                 pass
             #this insures Individuals without mother or father values aren't included
-            if self.id_numb != id and self.mother == self.ped.individuals[id].mother and self.father == self.ped.individuals[id].father:
-               siblings[id]=self
+            if self.id_numb != ind.id_numb and self.mother == ind.mother and self.father == ind.father:
+               siblings[ind.id_numb]=ind
                 #adds sibling to dictionary using id_numb as key
         return(siblings)
 
-    @property
     def impute_age(self):
         if int (self.age) != 0:
-            print("Age value already exists for individual.")
             return(self.age)
         elif len(self.siblings) == 0:
-            print("No siblings to compute age from.")
-            return(None)
+            return(0)
         else:
             count =0
             total=0
             s= self.siblings
-            for key in s.keys():
+            for sib in s.values():
                 count += 1
-                total += int (self.ped.individuals[key].age)
+                total += int (sib.age)
             return int (total/count)
 #5 refers to the age of the individual
 
@@ -51,9 +51,15 @@ class Pedigree:
             individuals[id].ped= self
             #This refers to each individual object and sets their pedigree as the current one.
 
-    def print_info(self, filename):
-         # print the pedigree information
+    def print_info(self, filename=None):
+         for ind in self.individuals.values():
+            print(ind.pedigree_numb + " " + ind.id_numb + " " + ind.father + " " + ind.mother + " " + ind.sex + " " + str(ind.age))
          return[]
+    
+    def impute_age(self):
+        for ind in self.individuals.values():
+            ind.age=ind.impute_age()
+            
                
 def import_ped(pedfile, mapfile = None):
     individuals= {}
@@ -69,4 +75,5 @@ def import_ped(pedfile, mapfile = None):
 
 
 p= import_ped("Fam12.ped")
-print(p.individuals['11'].impute_age)
+p.impute_age()
+p.print_info()
